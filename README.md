@@ -98,6 +98,7 @@ No real payment, authentication, database, or complex backend is implemented in 
 - Tailwind CSS
 - Vite
 - lucide-react icons
+
 - Browser `localStorage` for custom keyword persistence
 
 ## Example use cases

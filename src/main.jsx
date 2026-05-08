@@ -2,11 +2,14 @@ import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   AlertTriangle,
+
   BadgeCheck,
+
   BarChart3,
   BookOpen,
   CheckCircle2,
   CircleDollarSign,
+
   Layers,
   Lightbulb,
   Plus,
@@ -78,10 +81,12 @@ const defaultRules = [
   { phrase: '逆天改命', category: 'Public opinion backlash risk', severity: 'Medium', explanation: 'Overdramatic transformation language may invite criticism or unrealistic expectations.' },
   { phrase: '黄黑皮必看', category: 'Body anxiety, beauty anxiety, or shame-based messaging', severity: 'Medium', explanation: 'Skin-tone targeting can become shame-based if it implies certain tones need correction.' },
   { phrase: '女生必须精致', category: 'Gender stereotype or identity-based sensitivity', severity: 'High', explanation: 'This frames appearance expectations as mandatory for women and may trigger backlash.' },
+
 ];
 
 const platformRules = {
   Xiaohongshu: [
+
     { phrase: '种草', category: 'Missing ad disclosure or unclear sponsorship', severity: 'Low', explanation: 'Seeding language should be paired with clear disclosure when commercial intent exists.' },
     { phrase: '闭眼入', category: 'Urgency pressure or manipulative sales language', severity: 'Medium', explanation: 'Xiaohongshu users often value authentic, experience-led notes; pressure language may feel inauthentic.' },
   ],
@@ -97,27 +102,36 @@ const platformRules = {
   ],
   Bilibili: [
     { phrase: '恰饭', category: 'Missing ad disclosure or unclear sponsorship', severity: 'Low', explanation: 'Bilibili audiences often expect transparent sponsorship labels and creator context.' },
+
   ],
 };
 
 const demoCases = [
   {
+
     title: 'Skincare Xiaohongshu example',
+
     platforms: ['Xiaohongshu'],
     text: '博主亲测这款精华7天见效，敏感肌必入，女生一定要。不是广告，100%有效。',
   },
   {
+
     title: 'Sustainable fashion example',
+
     platforms: ['Xiaohongshu', 'Weibo'],
     text: '我们的新系列纯天然无害，环保零负担，可持续但没有具体说明，适合所有人。',
   },
   {
+
     title: 'Nonprofit campaign example',
+
     platforms: ['WeChat Official Account', 'Weibo'],
     text: '这次公益传播希望避免卖惨和身份标签，鼓励公众理性参与，不使用夸张承诺。',
   },
   {
+
     title: 'Douyin sales livestream example',
+
     platforms: ['Douyin'],
     text: '今晚限时秒杀，全网最低，不买就亏，错过再等一年，马上下单，学生党闭眼入。',
   },
@@ -131,18 +145,24 @@ function loadCustomRules() {
   }
 }
 
+
 function App() {
+
   const [copy, setCopy] = useState(demoCases[0].text);
   const [selectedPlatforms, setSelectedPlatforms] = useState(demoCases[0].platforms);
   const [customRules, setCustomRules] = useState(loadCustomRules);
   const [customForm, setCustomForm] = useState({ platform: PLATFORMS[0], phrase: '', category: RISK_CATEGORIES[0], severity: 'Medium' });
   const [report, setReport] = useState(null);
 
+
+
   const allRules = useMemo(() => {
     const userRules = customRules.map((rule) => ({
       ...rule,
       custom: true,
+
       explanation: `Custom ${rule.platform} keyword added by the user for ${rule.category}.`,
+
     }));
     return [...defaultRules.map((rule) => ({ ...rule, platform: 'All platforms' })), ...selectedPlatforms.flatMap((platform) => (platformRules[platform] || []).map((rule) => ({ ...rule, platform }))), ...userRules.filter((rule) => selectedPlatforms.includes(rule.platform))];
   }, [customRules, selectedPlatforms]);
@@ -151,6 +171,8 @@ function App() {
     setCustomRules(nextRules);
     localStorage.setItem('brandsafe-cn-custom-rules', JSON.stringify(nextRules));
   };
+
+
 
   const togglePlatform = (platform) => {
     setSelectedPlatforms((current) => current.includes(platform) ? current.filter((item) => item !== platform) : [...current, platform]);
@@ -186,6 +208,7 @@ function App() {
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <div className="absolute inset-0 -z-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.22),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(244,63,94,0.18),_transparent_30%)]" />
       <main className="relative mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
+
         <Hero />
         <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-6">
@@ -198,11 +221,13 @@ function App() {
         <Pricing />
         <p className="mt-8 rounded-2xl border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
           Disclaimer: This tool provides marketing risk analysis and communication guidance. It is not legal advice.
+
         </p>
       </main>
     </div>
   );
 }
+
 
 function Hero() {
   return (
@@ -219,6 +244,7 @@ function Hero() {
         </div>
         <div className="grid grid-cols-3 gap-3 text-center">
           {['Transparent scoring', 'Custom keywords', 'No content generation'].map((item) => (
+
             <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-4 text-sm text-slate-200" key={item}>{item}</div>
           ))}
         </div>
@@ -226,6 +252,7 @@ function Hero() {
     </section>
   );
 }
+
 
 function AnalyzerCard({ copy, setCopy, selectedPlatforms, togglePlatform, analyzeRisk, loadDemo }) {
   return (
@@ -237,22 +264,28 @@ function AnalyzerCard({ copy, setCopy, selectedPlatforms, togglePlatform, analyz
         <div className="flex flex-wrap gap-2">
           {PLATFORMS.map((platform) => (
             <button key={platform} onClick={() => togglePlatform(platform)} className={`platform-tag ${selectedPlatforms.includes(platform) ? 'active' : ''}`}>{platform}</button>
+
           ))}
         </div>
       </div>
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         {demoCases.map((demo) => (
+
           <button key={demo.title} onClick={() => loadDemo(demo)} className="rounded-2xl border border-slate-700 bg-slate-900/80 p-3 text-left text-sm text-slate-300 transition hover:border-teal-300/60 hover:text-white">
             {demo.title}
+
           </button>
         ))}
       </div>
       <button onClick={analyzeRisk} disabled={!copy.trim() || selectedPlatforms.length === 0} className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-400 px-5 py-4 font-bold text-slate-950 transition hover:bg-teal-300 disabled:cursor-not-allowed disabled:opacity-50">
+
         <BarChart3 /> Analyze Risk
+
       </button>
     </section>
   );
 }
+
 
 function CustomDictionary({ customRules, customForm, setCustomForm, addCustomRule, deleteRule }) {
   return (
@@ -274,12 +307,14 @@ function CustomDictionary({ customRules, customForm, setCustomForm, addCustomRul
               <p className="text-xs text-slate-400">{rule.platform} · {rule.category}</p>
             </div>
             <button onClick={() => deleteRule(rule.id)} className="rounded-xl p-2 text-rose-200 transition hover:bg-rose-400/10"><Trash2 size={18} /></button>
+
           </div>
         ))}
       </div>
     </section>
   );
 }
+
 
 function RiskReport({ report, selectedPlatforms }) {
   if (!report) {
@@ -290,6 +325,7 @@ function RiskReport({ report, selectedPlatforms }) {
           Enter copy, select platforms, and run the analyzer to see a transparent risk report.
         </div>
         <PlatformNotes platforms={selectedPlatforms} />
+
       </section>
     );
   }
@@ -300,6 +336,7 @@ function RiskReport({ report, selectedPlatforms }) {
     <section className="card sticky top-6 h-fit">
       <div className="flex items-start justify-between gap-4">
         <div>
+
           <div className="section-title"><AlertTriangle /> Structured risk report</div>
           <p className="text-sm text-slate-400">Transparent score based on matched default, platform, and custom rules.</p>
         </div>
@@ -308,11 +345,13 @@ function RiskReport({ report, selectedPlatforms }) {
       <div className="mt-5 rounded-3xl border border-white/10 bg-slate-950/70 p-5">
         <div className="flex items-end justify-between">
           <span className="text-slate-400">Risk score</span>
+
           <span className="text-5xl font-black text-white">{report.score}</span>
         </div>
         <div className="mt-4 h-3 rounded-full bg-slate-800"><div className="h-3 rounded-full bg-gradient-to-r from-emerald-300 via-amber-300 to-rose-400" style={{ width: `${report.score}%` }} /></div>
       </div>
       <div className="mt-5">
+
         <h3 className="font-semibold text-white">Main risk categories detected</h3>
         <div className="mt-2 flex flex-wrap gap-2">
           {report.categories.length ? report.categories.map((category) => <span key={category} className="risk-chip">{category}</span>) : <span className="risk-chip good">No major category detected</span>}
@@ -329,10 +368,12 @@ function RiskReport({ report, selectedPlatforms }) {
             <p className="mt-2 text-sm text-teal-100"><strong>Revision guidance:</strong> {categoryGuidance[match.category]}</p>
           </div>
         ))}
+
       </div>
     </section>
   );
 }
+
 
 function PlatformNotes({ platforms }) {
   const notes = {
@@ -347,10 +388,12 @@ function PlatformNotes({ platforms }) {
       <h3 className="font-semibold text-white">Platform-specific notes</h3>
       <div className="mt-2 space-y-2">
         {platforms.map((platform) => <p key={platform} className="rounded-2xl bg-white/5 p-3 text-sm text-slate-300"><strong>{platform}:</strong> {notes[platform]}</p>)}
+
       </div>
     </div>
   );
 }
+
 
 function Roadmap() {
   const items = ['AI semantic risk analysis', 'Trend-aware keyword updates from public sources', 'Platform policy monitoring', 'Team workspace', 'Exportable risk report', 'Subscription plan placeholder'];
@@ -362,6 +405,7 @@ function Roadmap() {
   );
 }
 
+
 function Pricing() {
   const plans = [
     { name: 'Free', detail: 'Rule-based risk detection and custom dictionary' },
@@ -371,6 +415,7 @@ function Pricing() {
   return (
     <section className="mt-8 grid gap-4 md:grid-cols-3">
       {plans.map((plan) => <div className="card" key={plan.name}><CircleDollarSign className="mb-3 text-teal-300" /><h3 className="text-2xl font-bold text-white">{plan.name}</h3><p className="mt-2 text-slate-300">{plan.detail}</p><p className="mt-4 text-xs uppercase tracking-[0.25em] text-slate-500">Payment placeholder only</p></div>)}
+
     </section>
   );
 }
