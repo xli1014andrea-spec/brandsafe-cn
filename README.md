@@ -2,7 +2,7 @@
 
 BrandSafe CN is a lightweight Chinese social media marketing risk checker for brand safety, platform-sensitive communication, and ethical marketing review. The MVP helps teams review Chinese campaign copy and briefs before publishing on platforms such as Xiaohongshu, Douyin, WeChat Official Account, Weibo, and Bilibili.
 
-The app does **not** generate promotional content. It flags risky phrases, explains why they may be risky, and gives revision guidance without rewriting the full copy. The interface supports bilingual Chinese/English display, defaults to Chinese, and remembers the selected language in `localStorage`.
+The app does **not** generate promotional content. It flags risky phrases, explains why they may be risky, and gives revision guidance without rewriting the full copy.
 
 ## Why this MVP is rule-based
 
@@ -12,7 +12,6 @@ Future AI modules can be added later for semantic review, trend-aware updates, a
 
 ## Main features
 
-- Bilingual Chinese/English interface with a top-right language toggle.
 - Large text area for Chinese marketing copy or campaign briefs.
 - Platform selection for:
   - Xiaohongshu
@@ -99,7 +98,8 @@ No real payment, authentication, database, or complex backend is implemented in 
 - Tailwind CSS
 - Vite
 - lucide-react icons
-- Browser `localStorage` for custom keyword and language preference persistence
+
+- Browser `localStorage` for custom keyword persistence
 
 ## Example use cases
 
